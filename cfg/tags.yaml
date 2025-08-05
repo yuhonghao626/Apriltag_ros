@@ -1,0 +1,51 @@
+apriltag:
+  ros__parameters:
+    family: 36h11
+    size: 0.2
+
+    tag:
+      ids: [0, 1, 2, 3]
+      frames: [tag_0, tag_1, tag_2, tag_3]
+      sizes: [0.2, 0.2, 0.2, 0.2]
+
+    # 自定义 bundle 相对位姿 (x,y,z, qw,qx,qy,qz) 一般在代码里维护
+    # apriltag_ros默认不直接支持此字段，需要你在代码中定义bundle的布局
+    tag_bundle:
+      name: box_bundle
+      layout:
+        - id: 0
+          size: 0.2
+          x: 0.0
+          y: 0.0
+          z: 0.0
+          qw: 1.0
+          qx: 0.0
+          qy: 0.0
+          qz: 0.0
+        - id: 1
+          size: 0.2
+          x: 0.3
+          y: 0.0
+          z: 0.0
+          qw: 1.0
+          qx: 0.0
+          qy: 0.0
+          qz: 0.0
+        - id: 2
+          size: 0.2
+          x: 0.3
+          y: 0.2
+          z: 0.0
+          qw: 1.0
+          qx: 0.0
+          qy: 0.0
+          qz: 0.0
+        - id: 3
+          size: 0.2
+          x: 0.0
+          y: 0.2
+          z: 0.0
+          qw: 1.0
+          qx: 0.0
+          qy: 0.0
+          qz: 0.0

@@ -39,15 +39,15 @@ find_package(apriltag_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(cv_bridge REQUIRED)
-find_package(Eigen3 REQUIRED NO_MODULE)
+find_package(Eigen3 REQUIRED)  # 确保 Eigen3 正确链接
 find_package(Threads REQUIRED)
 find_package(OpenCV REQUIRED COMPONENTS core calib3d)
 find_package(apriltag 3.2 REQUIRED)
+find_package(nav_msgs REQUIRED)
 
 if(cv_bridge_VERSION VERSION_GREATER_EQUAL 3.3.0)
     add_compile_definitions(cv_bridge_HPP)
 endif()
-
 
 # database of tag functions
 add_library(tags STATIC
@@ -59,7 +59,6 @@ target_link_libraries(tags
 set_property(TARGET tags PROPERTY
     POSITION_INDEPENDENT_CODE ON
 )
-
 
 # conversion functions as template specialisation
 add_library(conversion STATIC
@@ -73,11 +72,11 @@ target_link_libraries(conversion
 ament_target_dependencies(conversion
     geometry_msgs
     tf2
+    nav_msgs
 )
 set_property(TARGET conversion PROPERTY
     POSITION_INDEPENDENT_CODE ON
 )
-
 
 # pose estimation methods
 add_library(pose_estimation STATIC
@@ -97,7 +96,6 @@ set_property(TARGET pose_estimation PROPERTY
     POSITION_INDEPENDENT_CODE ON
 )
 
-
 # composable node
 add_library(AprilTagNode SHARED
     src/AprilTagNode.cpp
@@ -110,7 +108,9 @@ ament_target_dependencies(AprilTagNode
     tf2_ros
     image_transport
     cv_bridge
+    nav_msgs
 )
+
 target_link_libraries(AprilTagNode
     apriltag::apriltag
     tags
